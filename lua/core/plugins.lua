@@ -50,4 +50,7 @@ require("lazy").setup({
             require("cloak").setup(opts)
         end,
     },
+    {
+        "andweeb/presence.nvim"
+    }
 })
