@@ -11,4 +11,8 @@ require'nvim-treesitter.configs'.setup {
   indent = {
     enable = true,
   },
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter-textobjects',
+    },
+    build = ':TSUpdate',
 }

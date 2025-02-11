@@ -1,5 +1,13 @@
 require("lazy").setup({
-  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+  {
+    "catppuccin/nvim", name = "catppuccin", priority = 1000 
+  },
+    {
+    "folke/tokyonight.nvim",
+        lazy = false,
+        priority = 1000,
+        opts = {},
+    },
   "dracula/vim",
   "tpope/vim-commentary",
   "mattn/emmet-vim",
@@ -24,6 +32,11 @@ require("lazy").setup({
   "williamboman/mason.nvim",
   "williamboman/mason-lspconfig.nvim",
   "neovim/nvim-lspconfig",
+  {
+    "lukas-reineke/indent-blankline.nvim",
+     main = "ibl",
+     opts = {}
+  },
   {
     "vinnymeller/swagger-preview.nvim",
     run = "npm install -g swagger-ui-watcher",
@@ -52,5 +65,5 @@ require("lazy").setup({
     },
     {
         "andweeb/presence.nvim"
-    }
+    },
 })
