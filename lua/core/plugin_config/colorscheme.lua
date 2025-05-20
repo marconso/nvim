@@ -54,3 +54,4 @@ require('onedark').setup  {
 }
 
 require('onedark').load()
+-- vim.cmd[[ hi Normal guibg=NONE ctermbg=NONE ]]

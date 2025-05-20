@@ -1,5 +1,5 @@
 require("mason-lspconfig").setup({
-  ensure_installed = { "lua_ls", "jedi_language_server" },
+  ensure_installed = { "lua_ls", "jedi_language_server", "rust_analyzer" },
   handlers = {
         function (server_name)
         require("lspconfig")[server_name].setup {
@@ -34,6 +34,15 @@ require("lspconfig").lua_ls.setup {
     },
   }
 }
+
+-- Configurar diagnósticos para mostrar texto virtual e sinais
+vim.diagnostic.config({
+  virtual_text = true,  -- Mostra mensagens inline
+  signs = true,         -- Mostra os sinais (E/W)
+  update_in_insert = false,  -- Não atualiza durante modo insert
+  underline = true,     -- Sublinhar código problemático
+  severity_sort = true,
+})
 
 -- require("lspconfig").solargraph.setup({})
 require("lspconfig").ts_ls.setup({})

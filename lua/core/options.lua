@@ -33,3 +33,12 @@ vim.api.nvim_create_autocmd("BufReadPost", {
         end
     end,
 })
+
+vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+  pattern = "*.txt",
+  callback = function()
+    vim.opt_local.textwidth = 79
+    vim.opt_local.formatoptions:append("t")
+  end,
+})
+
