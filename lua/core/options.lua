@@ -41,4 +41,3 @@ vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
     vim.opt_local.formatoptions:append("t")
   end,
 })
-
