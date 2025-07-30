@@ -54,4 +54,6 @@ require('onedark').setup  {
 }
 
 require('onedark').load()
--- vim.cmd[[ hi Normal guibg=NONE ctermbg=NONE ]]
+vim.cmd[[ hi Normal guibg=NONE ctermbg=NONE ]]
+-- vim.cmd[[ colorscheme retrobox ]]
+vim.cmd[[ colorscheme miauware ]]

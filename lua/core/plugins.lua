@@ -8,6 +8,7 @@ require("lazy").setup({
         priority = 1000,
         opts = {},
     },
+  "miauware/miauware.nvim",
   "dracula/vim",
   "tpope/vim-commentary",
   "mattn/emmet-vim",
