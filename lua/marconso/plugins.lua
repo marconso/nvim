@@ -35,10 +35,20 @@ local plugins = {
   { "tpope/vim-fugitive" },
   -- Octo (GitHub integration: PRs, issues). Requires `gh` (GitHub CLI) configured.
   { "pwntester/octo.nvim", dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" } },
+
+ -- Colorscheme
+  {
+    "olimorris/onedarkpro.nvim",
+  },
+  {
+   'nvim-lualine/lualine.nvim',
+   dependencies = { 'nvim-tree/nvim-web-devicons' }
+  }
 }
+
 
 require("lazy").setup(plugins, {
   defaults = { lazy = true },
   install = { colorscheme = { "habamax", "tokyonight" } },
-  checker = { enabled = true }, -- auto-update check
+  -- checker = { enabled = true }, -- auto-update check
 })

@@ -1,4 +1,4 @@
-local lspconfig_ok, lspconfig = pcall(require, "lspconfig")
+local lspconfig_ok, lspconfig = pcall(require, "vim.lsp.config")
 if not lspconfig_ok then
   return
 end

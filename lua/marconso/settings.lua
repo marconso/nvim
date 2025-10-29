@@ -2,20 +2,22 @@ local opt = vim.opt
 
 -- Basics
 vim.g.mapleader = " "
-opt.completeopt = "menu,menuone,noselect"
+opt.completeopt = "menu,menuone,noselect,preview"
 opt.number = true
 opt.relativenumber = true
 opt.signcolumn = "yes"
-opt.clipboard = "unnamedplus"
+-- opt.clipboard = "unnamedplus"
 opt.updatetime = 250
 opt.termguicolors = true
-pcall(vim.cmd, "colorscheme habamax")
+opt.scrolloff = 10
+pcall(vim.cmd, "colorscheme onedark_dark")
 
 opt.cursorline = true
 opt.expandtab = true
 opt.shiftwidth = 4
 opt.tabstop = 4
 opt.smartindent = true
+opt.autoindent = true
 opt.wrap = false
 
 -- remember last position in file
