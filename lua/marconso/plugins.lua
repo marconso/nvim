@@ -4,9 +4,6 @@ local plugins = {
   { "nvim-lua/plenary.nvim" },
   { "nvim-tree/nvim-web-devicons" },
 
-  -- UI
-  { "nvim-lualine/lualine.nvim" },
-
   -- treesitter
   { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate", lazy = false},
 
@@ -43,12 +40,11 @@ local plugins = {
   {
    'nvim-lualine/lualine.nvim',
    dependencies = { 'nvim-tree/nvim-web-devicons' }
-  }
+  },
 }
 
 
 require("lazy").setup(plugins, {
   defaults = { lazy = true },
-  install = { colorscheme = { "habamax", "tokyonight" } },
-  -- checker = { enabled = true }, -- auto-update check
+  checker = { enabled = true }, -- auto-update check
 })

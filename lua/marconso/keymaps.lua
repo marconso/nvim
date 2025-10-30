@@ -12,5 +12,3 @@ map("n", "<leader>w", ":w<CR>", opts)
 map("n", "[d", vim.diagnostic.goto_prev, opts)
 map("n", "]d", vim.diagnostic.goto_next, opts)
 map("n", "<leader>ld", vim.diagnostic.open_float, opts)
-
--- cmp confirm mapping (set in cmp config too)
