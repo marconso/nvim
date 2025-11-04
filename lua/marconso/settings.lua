@@ -10,7 +10,7 @@ opt.signcolumn = "yes"
 opt.updatetime = 250
 opt.termguicolors = true
 opt.scrolloff = 10
-pcall(vim.cmd, "colorscheme onedark_dark")
+pcall(vim.cmd, "colorscheme catppuccin")
 
 opt.cursorline = true
 opt.expandtab = true
