@@ -37,7 +37,13 @@ local plugins = {
   {
     "olimorris/onedarkpro.nvim",
   },
-    { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+    {
+        "catppuccin/nvim",
+        name = "catppuccin", priority = 1000 
+    },
+    {
+        "iamcco/markdown-preview.nvim"
+    },
   {
    'nvim-lualine/lualine.nvim',
    dependencies = { 'nvim-tree/nvim-web-devicons' }

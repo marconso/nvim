@@ -2,7 +2,8 @@ vim.lsp.enable({
     'pyright',
     'rust-analyzer',
     'bashls',
-    'clangd'
+    'clangd',
+    'marksman',
 })
 
 -- -- mason setup
