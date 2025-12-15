@@ -4,6 +4,7 @@ vim.lsp.enable({
     'bashls',
     'clangd',
     'marksman',
+    'r_language_server'
 })
 
 -- -- mason setup
@@ -31,14 +32,3 @@ local on_attach = function(client, bufnr)
   bufmap('n', '<leader>ca', vim.lsp.buf.code_action)
   bufmap('n', '<leader>f', function() vim.lsp.buf.format { async = true } end)
 end
--- 
--- -- servers to ensure installed (mason will auto-install)
--- local servers = { "pyright", "ts_ls", "lua_ls", "gopls", "bashls" }
--- 
--- for _, lsp in ipairs(servers) do
---   lspconfig[lsp].setup({
---     on_attach = on_attach,
---     capabilities = capabilities,
---   })
--- end
--- 

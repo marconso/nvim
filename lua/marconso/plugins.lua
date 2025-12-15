@@ -53,5 +53,5 @@ local plugins = {
 
 require("lazy").setup(plugins, {
   defaults = { lazy = true },
-  checker = { enabled = true }, -- auto-update check
+  -- checker = { enabled = true }, -- auto-update check
 })

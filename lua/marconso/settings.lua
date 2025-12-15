@@ -10,7 +10,9 @@ opt.signcolumn = "yes"
 opt.updatetime = 250
 opt.termguicolors = true
 opt.scrolloff = 10
-pcall(vim.cmd, "colorscheme catppuccin")
+pcall(vim.cmd, "colorscheme catppuccin-macchiato")
+
+vim.api.nvim_set_hl(0, "Normal", { bg = "none" }) vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 
 opt.cursorline = true
 opt.expandtab = true
