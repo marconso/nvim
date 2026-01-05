@@ -2,7 +2,7 @@ local opt = vim.opt
 
 -- Basics
 vim.g.mapleader = " "
-opt.completeopt = "menu,menuone,noselect,preview"
+opt.completeopt = "menu,noinsert,menuone,noselect,preview"
 opt.number = true
 opt.relativenumber = true
 opt.signcolumn = "yes"
@@ -21,6 +21,14 @@ opt.tabstop = 4
 opt.smartindent = true
 opt.autoindent = true
 opt.wrap = false
+opt.ignorecase = true
+opt.smartcase = true
+opt.hlsearch = false
+opt.incsearch = true
+opt.updatetime = 300
+opt.timeoutlen = 500
+opt.writebackup = false
+opt.swapfile = false
 
 -- remember last position in file
 vim.api.nvim_create_autocmd("BufReadPost", {
