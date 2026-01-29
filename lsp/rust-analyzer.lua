@@ -9,6 +9,7 @@ return {
             },
             diagnostics = {
                 enable = true,
+                unlinked_file = false
             },
         },
     },

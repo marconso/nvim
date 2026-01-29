@@ -6,6 +6,7 @@ opt.completeopt = "menu,noinsert,menuone,noselect,preview"
 opt.number = true
 opt.relativenumber = true
 opt.signcolumn = "yes"
+opt.winborder = 'rounded'   
 -- opt.clipboard = "unnamedplus"
 opt.updatetime = 250
 opt.termguicolors = true
