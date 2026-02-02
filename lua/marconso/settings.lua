@@ -8,7 +8,7 @@ opt.relativenumber = true
 opt.signcolumn = "yes"
 opt.winborder = 'rounded'   
 -- opt.clipboard = "unnamedplus"
-opt.updatetime = 250
+opt.updatetime = 200
 opt.termguicolors = true
 opt.scrolloff = 10
 pcall(vim.cmd, "colorscheme catppuccin-macchiato")
