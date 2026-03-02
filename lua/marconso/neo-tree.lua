@@ -10,7 +10,7 @@ pcall(function()
     },
     window = {
       position = "left",
-      width = 35,
+      width = 30,
     },
   })
 end)
