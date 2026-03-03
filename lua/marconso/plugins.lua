@@ -33,6 +33,23 @@ local plugins = {
   -- Octo (GitHub integration: PRs, issues). Requires `gh` (GitHub CLI) configured.
   { "pwntester/octo.nvim", dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" } },
 
+  {
+    'windwp/nvim-autopairs',
+    event = "InsertEnter",
+    config = true
+  },
+
+  {
+      "lukas-reineke/indent-blankline.nvim",
+      main = "ibl",
+      ---@module "ibl"
+      ---@type ibl.config
+      opts = {},
+  },
+  {
+      "HiPhish/rainbow-delimiters.nvim"
+  },
+
  -- Colorscheme
   {
     "olimorris/onedarkpro.nvim",
