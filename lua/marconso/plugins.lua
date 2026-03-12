@@ -1,11 +1,14 @@
--- Plugin list (lazy.nvim format)
 local plugins = {
-  -- essentials
   { "nvim-lua/plenary.nvim" },
   { "nvim-tree/nvim-web-devicons" },
-
-  -- treesitter
-  { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate", lazy = false},
+  { 
+      "nvim-treesitter/nvim-treesitter",
+      dependencies = {
+        "nvim-treesitter/nvim-treesitter-textobjects",
+      },
+      build = ":TSUpdate",
+      lazy = false
+  },
 
   -- LSP + installer
   { "neovim/nvim-lspconfig" },
@@ -34,7 +37,7 @@ local plugins = {
   { "pwntester/octo.nvim", dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" } },
 
   {
-    'windwp/nvim-autopairs',
+    "windwp/nvim-autopairs",
     event = "InsertEnter",
     config = true
   },
@@ -46,24 +49,28 @@ local plugins = {
       ---@type ibl.config
       opts = {},
   },
-  {
-      "HiPhish/rainbow-delimiters.nvim"
-  },
+  { "HiPhish/rainbow-delimiters.nvim" },
 
- -- Colorscheme
+  { "olimorris/onedarkpro.nvim", },
   {
-    "olimorris/onedarkpro.nvim",
-  },
-    {
         "catppuccin/nvim",
         name = "catppuccin", priority = 1000 
-    },
-    {
-        "iamcco/markdown-preview.nvim"
-    },
+  },
+  { "iamcco/markdown-preview.nvim" },
   {
-   'nvim-lualine/lualine.nvim',
-   dependencies = { 'nvim-tree/nvim-web-devicons' }
+   "nvim-lualine/lualine.nvim",
+   dependencies = { "nvim-tree/nvim-web-devicons" }
+  },
+  { "saghen/blink.cmp", },
+  {
+     "folke/todo-comments.nvim",
+     dependencies = { "nvim-lua/plenary.nvim" },
+     opts = {}
+  },
+  {
+     'vyfor/cord.nvim',
+      build = ':Cord update',
+      -- opts = {}
   },
 }
 
