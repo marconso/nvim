@@ -1,5 +1,0 @@
-require("config.lazy")
-require("config.settings")
-require("config.rainbow")
-require("config.indent")
-require("config.lspconfig")
