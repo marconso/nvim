@@ -19,6 +19,7 @@ vim.g.neovide_opacity = 0.1
 vim.g.neovide_normal_opacity = 0.1
 
 opt.cursorline = true
+-- opt.cursorcolumn = true
 opt.expandtab = true
 opt.shiftwidth = 4
 opt.tabstop = 4
