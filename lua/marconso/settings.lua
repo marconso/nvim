@@ -44,3 +44,5 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     end
   end,
 })
+
+-- vim.opt.runtimepath:append("/home/marconso/.local/share/nvim/site/")
