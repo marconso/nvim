@@ -67,6 +67,10 @@ local plugins = {
       build = ':Cord update',
       -- opts = {}
   },
+  {
+    "rose-pine/neovim",
+	name = "rose-pine",
+  },
 }
 
 
