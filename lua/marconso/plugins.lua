@@ -1,15 +1,10 @@
 local plugins = {
   { "nvim-lua/plenary.nvim" },
   { "nvim-tree/nvim-web-devicons" },
-  { 
+  {
       "nvim-treesitter/nvim-treesitter",
-      dependencies = {
-        "nvim-treesitter/nvim-treesitter-textobjects",
-      },
       build = ":TSUpdate",
-      lazy = false
   },
-
   -- LSP + installer
   { "neovim/nvim-lspconfig" },
   { "williamboman/mason.nvim" },
