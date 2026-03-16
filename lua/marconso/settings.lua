@@ -13,10 +13,9 @@ opt.termguicolors = true
 opt.scrolloff = 10
 vim.cmd[[colorscheme catppuccin]]
 
--- vim.api.nvim_set_hl(0, "Normal", { bg = "none" }) vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
---
-vim.g.neovide_opacity = 0.1
-vim.g.neovide_normal_opacity = 0.1
+vim.api.nvim_set_hl(0, "Normal", { bg = "none" }) vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+-- vim.g.neovide_opacity = 0.1
+-- vim.g.neovide_normal_opacity = 0.1
 
 opt.cursorline = true
 -- opt.cursorcolumn = true
