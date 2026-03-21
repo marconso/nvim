@@ -4,7 +4,8 @@ vim.lsp.enable({
     'bashls',
     'clangd',
     'marksman',
-    'r_language_server'
+    'r_language_server',
+    'lua-language-server',
 })
 
 -- -- mason setup

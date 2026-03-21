@@ -4,6 +4,7 @@ local opt = vim.opt
 vim.g.mapleader = " "
 opt.completeopt = "menu,noinsert,menuone,noselect,preview"
 opt.number = true
+opt.backspace = "indent,eol,start"
 opt.relativenumber = true
 opt.signcolumn = "yes"
 opt.winborder = 'rounded'   
@@ -11,9 +12,9 @@ opt.winborder = 'rounded'
 opt.updatetime = 200
 opt.termguicolors = true
 opt.scrolloff = 10
-vim.cmd[[colorscheme catppuccin]]
+vim.cmd[[colorscheme onedark]]
 
-vim.api.nvim_set_hl(0, "Normal", { bg = "none" }) vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+-- vim.api.nvim_set_hl(0, "Normal", { bg = "none" }) vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 -- vim.g.neovide_opacity = 0.1
 -- vim.g.neovide_normal_opacity = 0.1
 
@@ -31,6 +32,20 @@ opt.hlsearch = false
 opt.incsearch = true
 opt.updatetime = 300
 opt.timeoutlen = 500
+-- opt.ttimeoutlen = 10
+
+vim.opt.termguicolors = true
+if vim.env.TERM == "xterm-kitty" or vim.env.TERM == "alacritty" then
+    vim.api.nvim_create_autocmd("UIEnter", {
+        callback = function()
+            -- Isso limpa sequências de query que podem causar o double-tap
+            io.write("\27[>0u") 
+        end,
+    })
+end  
+  
+vim.opt.timeoutlen = 300
+vim.opt.ttimeoutlen = 0
 opt.writebackup = false
 opt.swapfile = false
 
@@ -44,5 +59,3 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     end
   end,
 })
-
--- vim.opt.runtimepath:append("/home/marconso/.local/share/nvim/site/")
