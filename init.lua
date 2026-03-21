@@ -14,6 +14,7 @@ vim.o.smartcase = true
 vim.o.hlsearch = false
 vim.o.incsearch = true
 vim.o.completeopt = "menu,noinsert,menuone,noselect,preview"
+-- vim.o.autoindent = true
 vim.o.cursorline = true
 
 
@@ -29,6 +30,10 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 
 vim.pack.add({
     { src = "https://github.com/folke/tokyonight.nvim" },
+    { src = "https://github.com/marko-cerovac/material.nvim" },
+    { src = "https://github.com/rebelot/kanagawa.nvim" },
+    { src = "https://github.com/rose-pine/neovim" },
+    { src = "https://github.com/navarasu/onedark.nvim" },
     { src = "https://github.com/neovim/nvim-lspconfig" },
     { src = "https://github.com/mason-org/mason.nvim" },
     { src = "https://github.com/saghen/blink.cmp" },
@@ -45,6 +50,9 @@ vim.pack.add({
     { src = "https://github.com/nvim-lua/plenary.nvim" },
     { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
 })
+
+
+vim.g.material_style = "darker"
 
 require("neo-tree").setup({
     close_if_last_window = true,
@@ -65,7 +73,7 @@ require("neo-tree").setup({
 require("todo-comments").setup()
 require("ibl").setup()
 require("nvim-autopairs").setup()
-require("lualine").setup()
+require("lualine").setup({ theme = 'default' })
 require("telescope").setup()
 require("mason").setup()
 require("blink.cmp").setup({
@@ -95,20 +103,12 @@ require("gitsigns").setup({
     }
 })
 
--- require("nvim-treesitter").setup({
---     ensure_installed = { "lua", "vim", "javascript", "python", "rust", "cpp", "c", "html", "markdown" },
---     highlight = {
---         enable = true,
---     },
--- })
-
-vim.cmd [[colorscheme tokyonight-night]]
 
 local servers = { "lua_ls", "pyright", "rust", "clangd", "vim", "bashls", "r_language_server" }
 
 vim.lsp.enable(servers)
 
-vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format)
+vim.keymap.set({ "n", "x", "v" }, "<leader>lf", vim.lsp.buf.format)
 vim.keymap.set("n", "<leader>e", ":Neotree toggle<CR>")
 vim.keymap.set("n", "K", vim.lsp.buf.hover)
 vim.keymap.set("n", "<leader>w", ":w<CR>")
@@ -117,6 +117,8 @@ vim.keymap.set("n", "<leader>ld", vim.diagnostic.open_float)
 vim.keymap.set("n", "<leader>f", ":Telescope find_files<CR>")
 vim.keymap.set("n", "<leader>g", ":Telescope live_grep<CR>")
 
+
+vim.cmd 'colorscheme material'
 
 local ts = require("nvim-treesitter")
 local parsers = {
@@ -128,12 +130,10 @@ local parsers = {
     "yaml",
 }
 
--- Install parsers
 for _, parser in ipairs(parsers) do
     ts.install(parser)
 end
 
--- Register filetypes that don't match parser names (e.g., tsx → typescriptreact)
 local patterns = {}
 for _, parser in ipairs(parsers) do
     local parser_patterns = vim.treesitter.language.get_filetypes(parser)
@@ -142,16 +142,14 @@ for _, parser in ipairs(parsers) do
     end
 end
 vim.treesitter.language.register("groovy", "Jenkinsfile")
-
--- Enable syntax highlighting, indentation, and folding
 vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
--- vim.wo.foldmethod = "expr"
 vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 
--- Auto-start Treesitter on supported filetypes
 vim.api.nvim_create_autocmd("FileType", {
     pattern = patterns,
     callback = function()
         vim.treesitter.start()
     end,
 })
+
+vim.keymap.set("v", "<leader>tt", ":!toilet -w 200 -f term -F border<CR>")
