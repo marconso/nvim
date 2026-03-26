@@ -153,3 +153,13 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.keymap.set("v", "<leader>tt", ":!toilet -w 200 -f term -F border<CR>")
+-- vim.keymap.set("i", "jk", "<Esc>")
+vim.keymap.set({"i", "v"}, "çç", "<Esc>")
+vim.keymap.set("v", "<leader>'", "c''<Esc>P")
+vim.keymap.set('v', '<leader>"', 'c""<Esc>P')
+
+vim.api.nvim_create_autocmd("TextYankPost", {
+    callback = function()
+        vim.highlight.on_yank()
+    end
+})
