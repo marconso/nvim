@@ -104,7 +104,7 @@ require("gitsigns").setup({
 })
 
 
-local servers = { "lua_ls", "pyright", "rust_analyzer", "clangd", "vim", "bashls", "r_language_server" }
+local servers = { "lua_ls", "pyright", "rust_analyzer", "clangd", "vim", "bashls", "r_language_server", "yamlls" }
 
 vim.lsp.enable(servers)
 
@@ -154,7 +154,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
 vim.keymap.set("v", "<leader>tt", ":!toilet -w 200 -f term -F border<CR>")
 -- vim.keymap.set("i", "jk", "<Esc>")
-vim.keymap.set({"i", "v"}, "çç", "<Esc>")
+-- vim.keymap.set({"i", "v"}, "çç", "<Esc>")
 vim.keymap.set("v", "<leader>'", "c''<Esc>P")
 vim.keymap.set('v', '<leader>"', 'c""<Esc>P')
 
