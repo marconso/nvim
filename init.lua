@@ -49,6 +49,7 @@ vim.pack.add({
     { src = "https://github.com/folke/todo-comments.nvim" },
     { src = "https://github.com/nvim-lua/plenary.nvim" },
     { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
+    { src = "https://github.com/jose-elias-alvarez/null-ls.nvim" },
 })
 
 
@@ -104,7 +105,7 @@ require("gitsigns").setup({
 })
 
 
-local servers = { "lua_ls", "pyright", "rust_analyzer", "clangd", "vim", "bashls", "r_language_server", "yamlls" }
+local servers = { "lua_ls", "basedpyright", "ruff", "rust_analyzer", "clangd", "vim", "bashls", "r_language_server", "yamlls" }
 
 vim.lsp.enable(servers)
 
@@ -165,3 +166,8 @@ vim.api.nvim_create_autocmd("TextYankPost", {
         vim.highlight.on_yank()
     end
 })
+
+vim.keymap.set("n", "<leader>h", function()
+    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+end)
+
