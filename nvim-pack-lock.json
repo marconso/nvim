@@ -36,6 +36,10 @@
       "rev": "92f7366a9315cd386bc4fa4d716fde375dda210f",
       "src": "https://github.com/marko-cerovac/material.nvim"
     },
+    "mini.nvim": {
+      "rev": "69b7433355664cf76898eb86a12a019f39bd86d1",
+      "src": "https://github.com/nvim-mini/mini.nvim"
+    },
     "neo-tree.nvim": {
       "rev": "dffde7aaa99bfe19e61bb6a1446db26af6b2c603",
       "src": "https://github.com/nvim-neo-tree/neo-tree.nvim"

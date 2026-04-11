@@ -40,7 +40,8 @@ vim.pack.add({
     -- { src = "https://github.com/mrcjkb/rustaceanvim" },
     { src = "https://github.com/lewis6991/gitsigns.nvim" },
     { src = "https://github.com/nvim-telescope/telescope.nvim" },
-    { src = "https://github.com/windwp/nvim-autopairs" },
+    -- { src = "https://github.com/windwp/nvim-autopairs" },
+    { src = "https://github.com/nvim-mini/mini.nvim" },
     { src = "https://github.com/lukas-reineke/indent-blankline.nvim" },
     { src = "https://github.com/nvim-lualine/lualine.nvim" },
     { src = "https://github.com/nvim-neo-tree/neo-tree.nvim",        branch = "v3.x" },
@@ -73,7 +74,8 @@ require("neo-tree").setup({
 
 require("todo-comments").setup()
 require("ibl").setup()
-require("nvim-autopairs").setup()
+require("mini.pairs").setup()
+-- require("nvim-autopairs").setup()
 require("lualine").setup({ theme = 'default' })
 require("telescope").setup()
 require("mason").setup()
@@ -123,6 +125,11 @@ vim.cmd 'colorscheme material'
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" }) vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 
 
+require("nvim-treesitter").setup({
+  indent = { enable = true },      -- ← ESSA É A LINHA QUE RESOLVE O PROBLEMA DO }
+  highlight = { enable = true },   -- bônus: highlighting bonito e rápido
+})
+
 local ts = require("nvim-treesitter")
 local parsers = {
     "bash", "dockerfile", "elixir", "git_config",
@@ -145,13 +152,13 @@ for _, parser in ipairs(parsers) do
     end
 end
 vim.treesitter.language.register("groovy", "Jenkinsfile")
-vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 
 vim.api.nvim_create_autocmd("FileType", {
     pattern = patterns,
     callback = function()
         vim.treesitter.start()
+        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"  -- indent mágico
+        vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
     end,
 })
 
