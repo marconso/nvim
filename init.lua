@@ -107,7 +107,7 @@ require("gitsigns").setup({
 })
 
 
-local servers = { "lua_ls", "basedpyright", "ruff", "rust_analyzer", "clangd", "vim", "bashls", "r_language_server", "yamlls" }
+local servers = { "lua_ls", "pyright", "ruff", "rust_analyzer", "clangd", "vim", "bashls", "r_language_server", "yamlls" }
 
 vim.lsp.enable(servers)
 
