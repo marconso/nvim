@@ -89,6 +89,7 @@ require("blink.cmp").setup({
     },
     keymap = {
         preset = "none",
+        ["<C-space>"] = { "show", "fallback" },
         ["<C-d>"] = { "scroll_documentation_up", "fallback" },
         ["<C-f>"] = { "scroll_documentation_down", "fallback" },
         ["<Tab>"] = { "select_next", "fallback" },
@@ -126,8 +127,8 @@ vim.api.nvim_set_hl(0, "Normal", { bg = "none" }) vim.api.nvim_set_hl(0, "Normal
 
 
 require("nvim-treesitter").setup({
-  indent = { enable = true },      -- ← ESSA É A LINHA QUE RESOLVE O PROBLEMA DO }
-  highlight = { enable = true },   -- bônus: highlighting bonito e rápido
+  indent = { enable = true },
+  highlight = { enable = true },
 })
 
 local ts = require("nvim-treesitter")
