@@ -16,6 +16,8 @@ vim.o.incsearch = true
 vim.o.completeopt = "menu,noinsert,menuone,noselect,preview"
 vim.o.autoindent = true
 vim.o.cursorline = true
+vim.o.textwidth = 79
+vim.o.colorcolumn = "80"
 
 
 vim.api.nvim_create_autocmd("BufReadPost", {
@@ -55,6 +57,14 @@ vim.pack.add({
 
 
 vim.g.material_style = "darker"
+
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "python", "lua", "rust", "go", "cpp", "c" },
+    callback = function()
+        vim.bo.textwidth = 79
+        vim.wo.colorcolumn = "80"
+    end,
+})
 
 require("neo-tree").setup({
     close_if_last_window = true,
@@ -108,11 +118,23 @@ require("gitsigns").setup({
 })
 
 
-local servers = { "lua_ls", "pyright", "ruff", "rust_analyzer", "clangd", "vim", "bashls", "r_language_server", "yamlls" }
+local servers = { "lua_ls", "pyright", "ruff",
+    "gopls", "rust_analyzer", "clangd",
+    "bashls", "r_language_server", "yamlls" }
 
 vim.lsp.enable(servers)
 
-vim.keymap.set({ "n", "x", "v" }, "<leader>lf", vim.lsp.buf.format)
+-- vim.keymap.set({ "n", "x", "v" }, "<leader>lf", vim.lsp.buf.format)
+vim.keymap.set({ "n", "x", "v" }, "<leader>lf", function()
+    vim.lsp.buf.format({
+        async = true,
+        formatting_options = {
+            tabSize = 4,
+            insertSpaces = true,
+        },
+    })
+end)
+
 vim.keymap.set("n", "<leader>e", ":Neotree toggle<CR>")
 vim.keymap.set("n", "K", vim.lsp.buf.hover)
 vim.keymap.set("n", "<leader>w", ":w<CR>")
@@ -123,18 +145,19 @@ vim.keymap.set("n", "<leader>g", ":Telescope live_grep<CR>")
 
 
 vim.cmd 'colorscheme material'
-vim.api.nvim_set_hl(0, "Normal", { bg = "none" }) vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 
 
 require("nvim-treesitter").setup({
-  indent = { enable = true },
-  highlight = { enable = true },
+    indent = { enable = true },
+    highlight = { enable = true },
 })
 
 local ts = require("nvim-treesitter")
 local parsers = {
-    "bash", "dockerfile", "elixir", "git_config",
-    "gitcommit", "gitignore", "groovy", "go", "heex", "html", "http",
+    "bash", "dockerfile", "elixir", "git_config", "gitcommit", "gitignore",
+    "groovy", "go", "heex", "html", "http",
     "java", "javascript", "lua", "make", "markdown",
     "markdown_inline", "python", "regex", "rst", "rust", "ssh_config",
     "sql", "typst", "toml", "tsx", "typescript", "vim", "vimdoc",
@@ -154,18 +177,17 @@ for _, parser in ipairs(parsers) do
 end
 vim.treesitter.language.register("groovy", "Jenkinsfile")
 
+
 vim.api.nvim_create_autocmd("FileType", {
     pattern = patterns,
     callback = function()
         vim.treesitter.start()
-        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"  -- indent mágico
+        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
         vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
     end,
 })
 
 vim.keymap.set("v", "<leader>tt", ":!toilet -w 200 -f term -F border<CR>")
--- vim.keymap.set("i", "jk", "<Esc>")
--- vim.keymap.set({"i", "v"}, "çç", "<Esc>")
 vim.keymap.set("v", "<leader>'", "c''<Esc>P")
 vim.keymap.set('v', '<leader>"', 'c""<Esc>P')
 
@@ -178,4 +200,3 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 vim.keymap.set("n", "<leader>h", function()
     vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 end)
-
