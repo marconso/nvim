@@ -8,6 +8,10 @@
       "rev": "de87a1fb458dd24f33740b52618630af93d2c803",
       "src": "https://github.com/miauware/comments-highlight"
     },
+    "conform.nvim": {
+      "rev": "dca1a190aa85f9065979ef35802fb77131911106",
+      "src": "https://github.com/stevearc/conform.nvim"
+    },
     "cyberdream.nvim": {
       "rev": "a68ffa6af98bf1fc88f33a071c51a188ec85c725",
       "src": "https://github.com/scottmckendry/cyberdream.nvim"
