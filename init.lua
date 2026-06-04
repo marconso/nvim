@@ -18,8 +18,7 @@ opt.incsearch = true
 opt.completeopt = "menu,noinsert,menuone,noselect,preview"
 opt.autoindent = true
 opt.cursorline = true
-opt.textwidth = 79
-opt.colorcolumn = "80"
+-- opt.colorcolumn = "80"
 
 vim.api.nvim_create_autocmd("BufReadPost", {
 	callback = function()
@@ -33,6 +32,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 
 vim.pack.add({
 	{ src = "https://github.com/folke/tokyonight.nvim" },
+	{ src = "https://github.com/catppuccin/nvim" },
 	{ src = "https://github.com/marko-cerovac/material.nvim" },
 	{ src = "https://github.com/rebelot/kanagawa.nvim" },
 	{ src = "https://github.com/rose-pine/neovim" },
@@ -61,8 +61,8 @@ vim.g.material_style = "darker"
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "python", "lua", "rust", "go", "cpp", "c" },
 	callback = function()
-		vim.bo.textwidth = 79
-		vim.wo.colorcolumn = "80"
+		-- vim.bo.textwidth = 79
+		-- vim.wo.colorcolumn = "80"
 	end,
 })
 
@@ -151,8 +151,87 @@ vim.keymap.set("n", "<leader>ld", vim.diagnostic.open_float)
 vim.keymap.set("n", "<leader>f", ":Telescope find_files<CR>")
 vim.keymap.set("n", "<leader>g", ":Telescope live_grep<CR>")
 
-vim.cmd("colorscheme material")
-vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+require("catppuccin").setup({
+    flavour = "auto", -- latte, frappe, macchiato, mocha
+    background = { -- :h background
+        light = "latte",
+        dark = "mocha",
+    },
+    transparent_background = false, -- disables setting the background color.
+    float = {
+        transparent = false, -- enable transparent floating windows
+        solid = false, -- use solid styling for floating windows, see |winborder|
+    },
+    term_colors = false, -- sets terminal colors (e.g. `g:terminal_color_0`)
+    dim_inactive = {
+        enabled = false, -- dims the background color of inactive window
+        shade = "dark",
+        percentage = 0.15, -- percentage of the shade to apply to the inactive window
+    },
+    no_italic = false, -- Force no italic
+    no_bold = false, -- Force no bold
+    no_underline = false, -- Force no underline
+    styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
+        comments = { "italic" }, -- Change the style of comments
+        conditionals = { "italic" },
+        loops = {},
+        functions = {},
+        keywords = {},
+        strings = {},
+        variables = {},
+        numbers = {},
+        booleans = {},
+        properties = {},
+        types = {},
+        operators = {},
+        -- miscs = {}, -- Uncomment to turn off hard-coded styles
+    },
+    lsp_styles = { -- Handles the style of specific lsp hl groups (see `:h lsp-highlight`).
+        virtual_text = {
+            errors = { "italic" },
+            hints = { "italic" },
+            warnings = { "italic" },
+            information = { "italic" },
+            ok = { "italic" },
+        },
+        underlines = {
+            errors = { "underline" },
+            hints = { "underline" },
+            warnings = { "underline" },
+            information = { "underline" },
+            ok = { "underline" },
+        },
+        inlay_hints = {
+            background = true,
+        },
+    },
+    color_overrides = {},
+    custom_highlights = {},
+    default_integrations = true,
+    auto_integrations = false,
+    integrations = {
+        cmp = true,
+        gitsigns = true,
+        nvimtree = true,
+        notify = false,
+        mini = {
+            enabled = true,
+            indentscope_color = "",
+        },
+    },
+})
+
+vim.cmd("colorscheme catppuccin")
+
+vim.api.nvim_set_hl(0, "Normal", {
+  ctermbg = "NONE",
+  bg = "NONE",
+})
+
+vim.api.nvim_set_hl(0, "NormalNC", {
+  ctermbg = "NONE",
+  bg = "NONE",
+})
 -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 
 require("nvim-treesitter").setup({

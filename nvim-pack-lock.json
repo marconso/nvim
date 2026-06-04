@@ -60,6 +60,10 @@
       "rev": "0010ea927ab7c09ef0ce9bf28c2b573fc302f5a7",
       "src": "https://github.com/jose-elias-alvarez/null-ls.nvim"
     },
+    "nvim": {
+      "rev": "0303a7208dba448c459767486a38a6ec05c4216b",
+      "src": "https://github.com/catppuccin/nvim"
+    },
     "nvim-autopairs": {
       "rev": "59bce2eef357189c3305e25bc6dd2d138c1683f5",
       "src": "https://github.com/windwp/nvim-autopairs"
