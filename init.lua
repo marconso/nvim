@@ -18,6 +18,7 @@ opt.incsearch = true
 opt.completeopt = "menu,noinsert,menuone,noselect,preview"
 opt.autoindent = true
 opt.cursorline = true
+opt.inccommand = "split"
 -- opt.colorcolumn = "80"
 
 vim.api.nvim_create_autocmd("BufReadPost", {
@@ -40,10 +41,10 @@ vim.pack.add({
 	{ src = "https://github.com/neovim/nvim-lspconfig" },
 	{ src = "https://github.com/mason-org/mason.nvim" },
 	{ src = "https://github.com/saghen/blink.cmp" },
-	-- { src = "https://github.com/mrcjkb/rustaceanvim" },
+	{ src = "https://github.com/jmbuhr/otter.nvim" },
+	{ src = "https://github.com/quarto-dev/quarto-nvim" },
 	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
 	{ src = "https://github.com/nvim-telescope/telescope.nvim" },
-	-- { src = "https://github.com/windwp/nvim-autopairs" },
 	{ src = "https://github.com/nvim-mini/mini.nvim" },
 	{ src = "https://github.com/lukas-reineke/indent-blankline.nvim" },
 	{ src = "https://github.com/nvim-lualine/lualine.nvim" },
@@ -53,10 +54,21 @@ vim.pack.add({
 	{ src = "https://github.com/folke/todo-comments.nvim" },
 	{ src = "https://github.com/nvim-lua/plenary.nvim" },
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
-	{ src = "https://github.com/jose-elias-alvarez/null-ls.nvim" },
+	{ src = "https://github.com/nvimtools/none-ls.nvim" },
 })
 
 vim.g.material_style = "darker"
+
+vim.diagnostic.config({
+	signs = {
+		text = {
+			[vim.diagnostic.severity.ERROR] = "🤢",
+			[vim.diagnostic.severity.WARN] = "😫",
+			[vim.diagnostic.severity.INFO] = "😐",
+			[vim.diagnostic.severity.HINT] = "😉",
+		},
+	},
+})
 
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "python", "lua", "rust", "go", "cpp", "c" },
@@ -117,6 +129,29 @@ require("gitsigns").setup({
 	},
 })
 
+vim.keymap.set("n", "<leader>gb", function()
+	require("gitsigns").toggle_current_line_blame()
+end, { desc = "Git Blame na linha" })
+vim.keymap.set("n", "<leader>gc", ":Telescope git_bcommits<CR>", { desc = "Git Commits do arquivo" })
+vim.keymap.set({ "n", "i" }, "<C-k>", vim.lsp.buf.signature_help, { desc = "Ver parâmetros da função" })
+
+vim.lsp.config["lua_ls"] = {
+	settings = {
+		Lua = {
+			diagnostics = {
+				-- Informa o servidor que a variável 'vim' é global do Neovim
+				globals = { "vim" },
+			},
+			workspace = {
+				-- Faz o linter reconhecer todas as APIs do Neovim
+				library = vim.api.nvim_get_runtime_file("", true),
+				checkThirdParty = false,
+			},
+			telemetry = { enable = false },
+		},
+	},
+}
+
 local servers = {
 	"lua_ls",
 	"pyright",
@@ -132,8 +167,23 @@ local servers = {
 
 vim.lsp.enable(servers)
 
--- vim.keymap.set({ "n", "x", "v" }, "<leader>lf", vim.lsp.buf.format)
+vim.lsp.config["ruff"] = {
+	init_options = {
+		settings = {
+			lineLength = 79,
+		},
+	},
+}
 vim.keymap.set({ "n", "x", "v" }, "<leader>lf", function()
+	-- Se estiver em um arquivo Python, organiza os imports via Ruff antes de formatar
+	if vim.bo.filetype == "python" then
+		vim.lsp.buf.code_action({
+			context = { only = { "source.organizeImports.ruff" } },
+			apply = true,
+		})
+	end
+
+	-- Executa a formatação normal via LSP (Ruff no Python, rust_analyzer no Rust, etc.)
 	vim.lsp.buf.format({
 		async = true,
 		formatting_options = {
@@ -141,103 +191,107 @@ vim.keymap.set({ "n", "x", "v" }, "<leader>lf", function()
 			insertSpaces = true,
 		},
 	})
-end)
+end, { desc = "Format code and organize imports" })
 
 vim.keymap.set("n", "<leader>e", ":Neotree toggle<CR>")
 vim.keymap.set("n", "K", vim.lsp.buf.hover)
 vim.keymap.set("n", "<leader>w", ":w<CR>")
 vim.keymap.set({ "n", "x", "v" }, "<leader>y", '"+y<CR>')
 vim.keymap.set("n", "<leader>ld", vim.diagnostic.open_float)
+vim.keymap.set("n", "<leader>lD", ":Telescope diagnostics<CR>", { desc = "Listar todos os diagnósticos do projeto" })
 vim.keymap.set("n", "<leader>f", ":Telescope find_files<CR>")
 vim.keymap.set("n", "<leader>g", ":Telescope live_grep<CR>")
 
 require("catppuccin").setup({
-    flavour = "auto", -- latte, frappe, macchiato, mocha
-    background = { -- :h background
-        light = "latte",
-        dark = "mocha",
-    },
-    transparent_background = false, -- disables setting the background color.
-    float = {
-        transparent = false, -- enable transparent floating windows
-        solid = false, -- use solid styling for floating windows, see |winborder|
-    },
-    term_colors = false, -- sets terminal colors (e.g. `g:terminal_color_0`)
-    dim_inactive = {
-        enabled = false, -- dims the background color of inactive window
-        shade = "dark",
-        percentage = 0.15, -- percentage of the shade to apply to the inactive window
-    },
-    no_italic = false, -- Force no italic
-    no_bold = false, -- Force no bold
-    no_underline = false, -- Force no underline
-    styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
-        comments = { "italic" }, -- Change the style of comments
-        conditionals = { "italic" },
-        loops = {},
-        functions = {},
-        keywords = {},
-        strings = {},
-        variables = {},
-        numbers = {},
-        booleans = {},
-        properties = {},
-        types = {},
-        operators = {},
-        -- miscs = {}, -- Uncomment to turn off hard-coded styles
-    },
-    lsp_styles = { -- Handles the style of specific lsp hl groups (see `:h lsp-highlight`).
-        virtual_text = {
-            errors = { "italic" },
-            hints = { "italic" },
-            warnings = { "italic" },
-            information = { "italic" },
-            ok = { "italic" },
-        },
-        underlines = {
-            errors = { "underline" },
-            hints = { "underline" },
-            warnings = { "underline" },
-            information = { "underline" },
-            ok = { "underline" },
-        },
-        inlay_hints = {
-            background = true,
-        },
-    },
-    color_overrides = {},
-    custom_highlights = {},
-    default_integrations = true,
-    auto_integrations = false,
-    integrations = {
-        cmp = true,
-        gitsigns = true,
-        nvimtree = true,
-        notify = false,
-        mini = {
-            enabled = true,
-            indentscope_color = "",
-        },
-    },
+	flavour = "auto", -- latte, frappe, macchiato, mocha
+	background = { -- :h background
+		light = "latte",
+		dark = "mocha",
+	},
+	transparent_background = false, -- disables setting the background color.
+	float = {
+		transparent = false, -- enable transparent floating windows
+		solid = false, -- use solid styling for floating windows, see |winborder|
+	},
+	term_colors = false, -- sets terminal colors (e.g. `g:terminal_color_0`)
+	dim_inactive = {
+		enabled = false, -- dims the background color of inactive window
+		shade = "dark",
+		percentage = 0.15, -- percentage of the shade to apply to the inactive window
+	},
+	no_italic = false, -- Force no italic
+	no_bold = false, -- Force no bold
+	no_underline = false, -- Force no underline
+	styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
+		comments = { "italic" }, -- Change the style of comments
+		conditionals = { "italic" },
+		loops = {},
+		functions = {},
+		keywords = {},
+		strings = {},
+		variables = {},
+		numbers = {},
+		booleans = {},
+		properties = {},
+		types = {},
+		operators = {},
+		-- miscs = {}, -- Uncomment to turn off hard-coded styles
+	},
+	lsp_styles = { -- Handles the style of specific lsp hl groups (see `:h lsp-highlight`).
+		virtual_text = {
+			errors = { "italic" },
+			hints = { "italic" },
+			warnings = { "italic" },
+			information = { "italic" },
+			ok = { "italic" },
+		},
+		underlines = {
+			errors = { "underline" },
+			hints = { "underline" },
+			warnings = { "underline" },
+			information = { "underline" },
+			ok = { "underline" },
+		},
+		inlay_hints = {
+			background = true,
+		},
+	},
+	color_overrides = {},
+	custom_highlights = {},
+	default_integrations = true,
+	auto_integrations = false,
+	integrations = {
+		cmp = true,
+		gitsigns = true,
+		nvimtree = true,
+		notify = false,
+		mini = {
+			enabled = true,
+			indentscope_color = "",
+		},
+	},
 })
 
-vim.cmd("colorscheme catppuccin")
+vim.cmd("colorscheme material-deep-ocean")
 
-vim.api.nvim_set_hl(0, "Normal", {
-  ctermbg = "NONE",
-  bg = "NONE",
-})
+-- vim.api.nvim_set_hl(0, "Normal", {
+-- 	ctermbg = "NONE",
+-- 	bg = "NONE",
+-- })
 
-vim.api.nvim_set_hl(0, "NormalNC", {
-  ctermbg = "NONE",
-  bg = "NONE",
-})
+-- vim.api.nvim_set_hl(0, "NormalNC", {
+-- 	ctermbg = "NONE",
+-- 	bg = "NONE",
+-- })
+
 -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 
 require("nvim-treesitter").setup({
 	indent = { enable = true },
 	highlight = { enable = true },
 })
+
+require("quarto").setup()
 
 local ts = require("nvim-treesitter")
 local parsers = {
