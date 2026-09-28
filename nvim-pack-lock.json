@@ -100,6 +100,10 @@
       "rev": "17f1e5d664bc615478230dc0240666329efacf9b",
       "src": "https://github.com/quarto-dev/quarto-nvim"
     },
+    "render-markdown.nvim": {
+      "rev": "640a3ec6d538bad17c328be373c7cad0293d9589",
+      "src": "https://github.com/meanderingprogrammer/render-markdown.nvim"
+    },
     "telescope.nvim": {
       "rev": "5255aa27c422de944791318024167ad5d40aad20",
       "src": "https://github.com/nvim-telescope/telescope.nvim"
@@ -111,6 +115,10 @@
     "tokyonight.nvim": {
       "rev": "5da1b76e64daf4c5d410f06bcb6b9cb640da7dfd",
       "src": "https://github.com/folke/tokyonight.nvim"
+    },
+    "venn.nvim": {
+      "rev": "b09c2f36ddf70b498281845109bedcf08a7e0de0",
+      "src": "https://github.com/jbyuki/venn.nvim"
     }
   }
 }
